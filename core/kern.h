@@ -33,15 +33,23 @@ public:
     }
     /** call every ms */
     void tick(uint32_t dt_ms) {
+        if (!dont)
         schedule(time, *this);
         time_ += dt_ms;
     }
     /** kernel entry point */
-    [[noreturn]] void run () {
+    [[noreturn]] void run() {
         while(true) {
             Scheduler::run();
             idle();
         }
+    }
+    bool dont{false};
+    void pause() {
+        dont=true;
+    }
+    void unpause() {
+        dont=false;
     }
     /** implement to not burn unnecessary cpu cycles
      *
