@@ -32,6 +32,6 @@ public:
         if (samples.full()) {
             total -= samples.pop();
         }
-        samples.push(tSample);
+        samples.push(std::move(tSample));
     }
 };
